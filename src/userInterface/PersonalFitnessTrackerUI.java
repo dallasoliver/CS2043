@@ -36,9 +36,9 @@ import java.awt.event.ActionEvent;
 public class PersonalFitnessTrackerUI extends JFrame {
 
 	private Border emptyBorder = BorderFactory.createEmptyBorder(0, 0, 0, 0);
-	private Image imgStrength = new ImageIcon(this.getClass().getResource("/weight2ICON.png")).getImage();
+	private Image imgStrength = new ImageIcon(PersonalFitnessTrackerUI.class.getResource("/weight2ICON.png")).getImage();
 	private Icon iconStrength = new ImageIcon(imgStrength);
-	private Image imgCardio = new ImageIcon(this.getClass().getResource("/cardio2icon.png")).getImage();
+	private Image imgCardio = new ImageIcon(PersonalFitnessTrackerUI.class.getResource("/cardio2icon.png")).getImage();
 	private Icon icon = new ImageIcon(imgCardio);
 	private SpinnerModel repsModel = new SpinnerNumberModel(0, 0, 100, 1);   
 	private SpinnerModel hoursModel = new SpinnerNumberModel(0, 0, 25, 1);    
