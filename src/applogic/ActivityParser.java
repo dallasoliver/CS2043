@@ -1,4 +1,4 @@
-package xmlaccess;
+package applogic;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
+import java.util.LinkedList;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -20,7 +20,7 @@ import objects.Activity;
 import objects.CardioActivity;
 import objects.StrengthActivity;
 
-public class StaXParser {
+public class ActivityParser {
 	static final String TO = "to";
 	static final String FROM = "from";
 	static final String HEADING = "heading";
@@ -37,8 +37,8 @@ public class StaXParser {
 	
 
 	@SuppressWarnings({ "unchecked", "null" })
-	public List<Activity> readConfig(String configFile) {
-		List<Activity> activities = new ArrayList<Activity>();
+	public static LinkedList<Activity> readConfig(String configFile) {
+		LinkedList<Activity> activities = new LinkedList<Activity>();
 		try {
 			// First, create a new XMLInputFactory
 			XMLInputFactory inputFactory = XMLInputFactory.newInstance();

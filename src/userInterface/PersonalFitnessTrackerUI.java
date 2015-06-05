@@ -30,8 +30,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import org.jdesktop.swingx.JXDatePicker;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import applogic.PersonalFitnessTrackerLogic;
 
 public class PersonalFitnessTrackerUI extends JFrame {
 
@@ -81,7 +81,7 @@ public class PersonalFitnessTrackerUI extends JFrame {
 	private JScrollPane compareScrollPane1;
 	private JScrollPane compareScrollPane2;
 
-	
+	private static applogic.PersonalFitnessTrackerLogic logic;
 	/**
 	 * Launch the application.
 	 */
@@ -96,6 +96,7 @@ public class PersonalFitnessTrackerUI extends JFrame {
 				}
 			}
 		});
+		logic = new PersonalFitnessTrackerLogic("activities.xml");
 	}
 
 	/**
@@ -168,6 +169,7 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		tfStrengthActivityName.setColumns(10);
 		
 		datePickerStrength = new JXDatePicker();
+		datePickerStrength.getEditor().setEditable(false);
 		datePickerStrength.getEditor().setBorder(new LineBorder(new Color(192, 192, 192)));
 		datePickerStrength.setBounds(226, 55, 187, 28);
 		strengthMainPanel.add(datePickerStrength);
@@ -178,32 +180,16 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		btnSaveStrength.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 13));
 		btnSaveStrength.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				String name = tfStrengthActivityName.getText();
-		        Integer reps = (Integer)repsSpinner.getValue();
+			public void mouseClicked(MouseEvent m) {
+		        String name = tfStrengthActivityName.getText();
+		        String reps = repsSpinner.getValue().toString();
 		        String weight = tfWeightLifted.getText(); 
 		        Date dateSelected = datePickerStrength.getDate();
-		        Date now = new Date();
-		        long ctime = System.currentTimeMillis();
-		        now.setTime(ctime);
-		        if (dateSelected != null){
-		            boolean dateForm = dateSelected.before(now);
-		            if(!dateForm){
-		                JOptionPane.showMessageDialog(strengthMainPanel, "You must enter a date on or before today to save your workout details.", "Error", JOptionPane.ERROR_MESSAGE); 
-		            } 
+		        try{
+		        	logic.addStrengthActivity(name, dateSelected, weight, reps);
 		        }
-		        
-		        if (name.isEmpty()){
-		            JOptionPane.showMessageDialog(strengthMainPanel, "You must enter an activity name to save your workout details.", "Error", JOptionPane.ERROR_MESSAGE);
-		        }
-		        if(reps == null){
-		            JOptionPane.showMessageDialog(strengthMainPanel, "You must enter the repititions to save your workout details.", "Error", JOptionPane.ERROR_MESSAGE); 
-		        }
-		        if(weight == null){
-		            JOptionPane.showMessageDialog(strengthMainPanel, "You must enter the weight lifted to save your workout details.", "Error", JOptionPane.ERROR_MESSAGE); 
-		        }
-		        if(dateSelected == null){
-		            JOptionPane.showMessageDialog(strengthMainPanel, "You must enter a date to save your workout details.", "Error", JOptionPane.ERROR_MESSAGE); 
+		        catch(Exception e){
+		        	JOptionPane.showMessageDialog(strengthMainPanel, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		        }
 			}
 		});
@@ -261,29 +247,17 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		btnSaveCardio.setBackground(new Color(0, 0, 0));
 		btnSaveCardio.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent m) {
 				String name = tfCardioActivityName.getText();
 				Integer hours = (Integer) timeSpentHoursSpinner.getValue();
-				Integer minutes = (Integer) timeSpentHoursSpinner.getValue();
+				Integer minutes = (Integer) timeSpentMinsSpinner.getValue();
+				String time = "" + (hours*60 + minutes);
 		        Date dateSelected = datePickerCardio.getDate();
-		        Date now = new Date();
-		        long ctime = System.currentTimeMillis();
-		        now.setTime(ctime);
-		        if (dateSelected != null){
-		            boolean dateForm = dateSelected.before(now);
-		            if(!dateForm){
-		                JOptionPane.showMessageDialog(cardioMainPanel, "You must enter a date on or before today to save your workout details.", "Error", JOptionPane.ERROR_MESSAGE); 
-		            } 
+		        try{
+		        	logic.addCardioActivity(name, dateSelected, time);
 		        }
-		        
-		        if (name.isEmpty()){
-		            JOptionPane.showMessageDialog(cardioMainPanel, "You must enter an activity name to save your workout details.", "Error", JOptionPane.ERROR_MESSAGE);
-		        }
-		        if(hours == null && minutes == null){
-		            JOptionPane.showMessageDialog(cardioMainPanel, "You must enter the time spent to save your workout details.", "Error", JOptionPane.ERROR_MESSAGE); 
-		        }
-		        if(dateSelected == null){
-		            JOptionPane.showMessageDialog(cardioMainPanel, "You must enter a date to save your workout details.", "Error", JOptionPane.ERROR_MESSAGE); 
+		        catch(Exception e){
+		        	JOptionPane.showMessageDialog(cardioMainPanel, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		        }
 			}
 		});
@@ -292,6 +266,7 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		cardioMainPanel.add(btnSaveCardio);
 		
 		datePickerCardio = new JXDatePicker();
+		datePickerCardio.getEditor().setEditable(false);
 		datePickerCardio.getEditor().setBorder(new LineBorder(new Color(192, 192, 192)));
 		datePickerCardio.setBounds(226, 55, 187, 28);
 		cardioMainPanel.add(datePickerCardio);
@@ -337,10 +312,14 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		//compareWorkoutsPanel.setLayout(null);
 
 		textArea1 = new JTextArea(5, 30);
+		textArea1.setWrapStyleWord(true);
+		textArea1.setLineWrap(true);
 		textArea1.setForeground(new Color(105, 105, 105));
 		textArea1.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 14));
 		textArea1.setBackground(UIManager.getColor("Separator.foreground"));
 		textArea2 = new JTextArea(5, 30);
+		textArea2.setWrapStyleWord(true);
+		textArea2.setLineWrap(true);
 		textArea2.setForeground(new Color(105, 105, 105));
 		textArea2.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 14));
 		textArea2.setMaximumSize(new Dimension(200, 200));
@@ -352,21 +331,14 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		compareScrollPane2 = new JScrollPane (textArea2);		
 		compareScrollPane2.setBorder(null);
 		compareScrollPane2.setBackground(UIManager.getColor("Separator.foreground"));
-		compareScrollPane2.setBounds(0, 80, 226, 145);
-		compareScrollPane1.setBounds(249, 80, 226, 145);
+		compareScrollPane1.setBounds(0, 80, 226, 145);
+		compareScrollPane2.setBounds(249, 80, 226, 145);
 		compareWorkoutsPanel.setBorder(emptyBorder);
 		compareWorkoutsPanel.setLayout(null);
-		compareWorkoutsPanel.add(compareScrollPane2);
 		compareWorkoutsPanel.add(compareScrollPane1);
+		compareWorkoutsPanel.add(compareScrollPane2);
 		
 		compareDatePicker1 = new JXDatePicker();
-		compareDatePicker1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Date now1 = new Date();
-				compareDatePicker2.setDate(now1);
-
-			}
-		});
 		compareDatePicker1.setBounds(37, 45, 151, 28);
 		compareWorkoutsPanel.add(compareDatePicker1);
 		
@@ -388,8 +360,11 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		btnCompareWorkouts.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				//textArea1.text();
+				textArea1.setText(logic.searchByDate(compareDatePicker1.getDate()));
+				textArea2.setText(logic.searchByDate(compareDatePicker2.getDate()));
+				if(textArea1.getText().isEmpty() && textArea1.getText().isEmpty()){
+					JOptionPane.showMessageDialog(compareWorkoutsPanel, "You must select at least one date." , "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnCompareWorkouts.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 13));
