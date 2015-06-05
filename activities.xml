@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Activities>
 <CardioActivity>
 	<date>0</date>
@@ -60,4 +60,121 @@
 	<name>10</name>
 	<timeSpent>30</timeSpent>
 </CardioActivity>
+<StrengthActivity>
+	<date>1433127600000</date>
+	<name>wlawlwlalalz</name>
+	<weightLifted>50</weightLifted>
+	<repetitions>5</repetitions>
+</StrengthActivity>
+<StrengthActivity>
+	<date>1433127600000</date>
+	<name>wlawlwlalalz</name>
+	<weightLifted>50</weightLifted>
+	<repetitions>5</repetitions>
+</StrengthActivity>
+<StrengthActivity>
+	<date>1433127600000</date>
+	<name>wlawlwlalalz</name>
+	<weightLifted>50</weightLifted>
+	<repetitions>5</repetitions>
+</StrengthActivity>
+<StrengthActivity>
+	<date>1433127600000</date>
+	<name>wlawlwlalalz</name>
+	<weightLifted>50</weightLifted>
+	<repetitions>5</repetitions>
+</StrengthActivity>
+<CardioActivity>
+	<date>0</date>
+	<name>Woohoo</name>
+	<timeSpent>183</timeSpent>
+</CardioActivity>
+<StrengthActivity>
+	<date>1433473200000</date>
+	<name>Woohoo</name>
+	<weightLifted>9001</weightLifted>
+	<repetitions>1</repetitions>
+</StrengthActivity>
+<StrengthActivity>
+	<date>1433300400000</date>
+	<name>0</name>
+	<weightLifted>0</weightLifted>
+	<repetitions>0</repetitions>
+</StrengthActivity>
+<StrengthActivity>
+	<date>1031626800000</date>
+	<name>0</name>
+	<weightLifted>0</weightLifted>
+	<repetitions>0</repetitions>
+</StrengthActivity>
+<StrengthActivity>
+	<date>1031626800000</date>
+	<name>0</name>
+	<weightLifted>0</weightLifted>
+	<repetitions>0</repetitions>
+</StrengthActivity>
+<StrengthActivity>
+	<date>831524400000</date>
+	<name>0</name>
+	<weightLifted>0</weightLifted>
+	<repetitions>0</repetitions>
+</StrengthActivity>
+<StrengthActivity>
+	<date>831524400000</date>
+	<name>0</name>
+	<weightLifted>0</weightLifted>
+	<repetitions>0</repetitions>
+</StrengthActivity>
+<StrengthActivity>
+	<date>831524400000</date>
+	<name>0</name>
+	<weightLifted>0</weightLifted>
+	<repetitions>0</repetitions>
+</StrengthActivity>
+<StrengthActivity>
+	<date>831524400000</date>
+	<name>0</name>
+	<weightLifted>0</weightLifted>
+	<repetitions>0</repetitions>
+</StrengthActivity>
+<StrengthActivity>
+	<date>831524400000</date>
+	<name>0</name>
+	<weightLifted>0</weightLifted>
+	<repetitions>0</repetitions>
+</StrengthActivity>
+<StrengthActivity>
+	<date>-41893200000</date>
+	<name>0</name>
+	<weightLifted>0</weightLifted>
+	<repetitions>0</repetitions>
+</StrengthActivity>
+<StrengthActivity>
+	<date>-41893200000</date>
+	<name>0</name>
+	<weightLifted>0</weightLifted>
+	<repetitions>0</repetitions>
+</StrengthActivity>
+<CardioActivity>
+	<date>1433214000000</date>
+	<name>buggery</name>
+	<timeSpent>-540</timeSpent>
+</CardioActivity>
+<CardioActivity>
+	<date>1433214000000</date>
+	<name>buggery</name>
+	<timeSpent>-540</timeSpent>
+</CardioActivity>
+<StrengthActivity>
+	<date>-41893200000</date>
+	<name>\n</name>
+	<weightLifted>90</weightLifted>
+	<repetitions>0</repetitions>
+</StrengthActivity>
+<StrengthActivity>
+	<date>1433127600000</date>
+	<name>\n</name>
+	<weightLifted>90</weightLifted>
+	<repetitions>0</repetitions>
+</StrengthActivity>
 </Activities>

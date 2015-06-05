@@ -1,4 +1,4 @@
-package xmlaccess;
+package applogic;
 
 import java.io.FileOutputStream;
 import java.util.LinkedList;
@@ -19,16 +19,9 @@ import javax.xml.stream.events.XMLEvent;
 import java.util.ListIterator;
 
 import objects.*;
-public class StaxWriter { 
-  private String configFile;
-
-  public void setFile(String configFile) {
-    this.configFile = configFile;
-  }
-
-
+public class ActivityWriter { 
   
-  public void saveConfig(LinkedList<Activity> activities) throws Exception {
+  public static void saveConfig(LinkedList<Activity> activities, String configFile) throws Exception {
 	    // create an XMLOutputFactory
 	    XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
 
@@ -92,7 +85,7 @@ public class StaxWriter {
 		eventWriter.add(eventFactory.createEndDocument());
 	    eventWriter.close();
 	  }
-  private void createNode(XMLEventWriter eventWriter, String name,
+  private static void createNode(XMLEventWriter eventWriter, String name,
       String value) throws XMLStreamException {
 
     XMLEventFactory eventFactory = XMLEventFactory.newInstance();
@@ -114,7 +107,7 @@ public class StaxWriter {
   }
   
   
-  private void openRootNode(XMLEventWriter eventWriter) throws XMLStreamException{
+  private static void openRootNode(XMLEventWriter eventWriter) throws XMLStreamException{
 	  XMLEventFactory eventFactory = XMLEventFactory.newInstance();
 	  XMLEvent end = eventFactory.createSpace("\n");
 	   
@@ -126,7 +119,7 @@ public class StaxWriter {
 	    System.out.println("opened root");
   }
   
-  private void closeRootNode(XMLEventWriter eventWriter) throws XMLStreamException{
+  private static void closeRootNode(XMLEventWriter eventWriter) throws XMLStreamException{
 	  XMLEventFactory eventFactory = XMLEventFactory.newInstance();
 	  XMLEvent end = eventFactory.createSpace("\n");
 	   

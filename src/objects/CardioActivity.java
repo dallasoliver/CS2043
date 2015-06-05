@@ -30,8 +30,20 @@ public class CardioActivity extends Activity{
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return this.getType() + this.getTimeSpent() + this.getDate();
+		int hours, minutes;
+		hours = getTimeSpent() / 60;
+		minutes = getTimeSpent() % 60;
+		
+		return "Cardio Session:"
+				+ "\n    Name: "
+				+ this.getName()
+				+ "\n    Date: "
+				+ (this.getDate().toString()).substring(0, 10)
+				+ " "
+				+ (this.getDate().toString()).substring(
+						(this.getDate().toString()).length() - 4,
+						(this.getDate().toString()).length())
+				+ "\n    Time Spent: " + hours + ":" + minutes;
 	}
 	
 	
