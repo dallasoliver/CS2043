@@ -39,8 +39,17 @@ public class StrengthActivity extends Activity {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Strength Training Session:"
+				+ "\n    Name: "
+				+ this.getName()
+				+ "\n    Date: "
+				+ (this.getDate().toString()).substring(0, 10)
+				+ " "
+				+ (this.getDate().toString()).substring(
+						(this.getDate().toString()).length() - 4,
+						(this.getDate().toString()).length())
+				+ "\n    Weight Lifted: " + this.getWeightLifted()
+				+ "lbs\n    Repetitions: " + this.getRepetitions();
 	}
 
 	
