@@ -7,7 +7,8 @@ public class StrengthActivity extends Activity {
 	private int weightLifted;
 	private int repetitions;
 
-	public StrengthActivity(String name, Date date, int weightLifted, int repetitions) {
+	public StrengthActivity(String name, Date date, int weightLifted,
+			int repetitions) {
 		super(name, date);
 		this.weightLifted = weightLifted;
 		this.repetitions = repetitions;
@@ -51,7 +52,4 @@ public class StrengthActivity extends Activity {
 				+ "\n    Weight Lifted: " + this.getWeightLifted()
 				+ "lbs\n    Repetitions: " + this.getRepetitions();
 	}
-
-	
-
 }
