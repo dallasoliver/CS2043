@@ -8,7 +8,6 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Date;
-
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -30,32 +29,30 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import org.jdesktop.swingx.JXDatePicker;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 import applogic.PersonalFitnessTrackerLogic;
 
 public class PersonalFitnessTrackerUI extends JFrame {
-	
+
 	private String OSString;
 	private Border emptyBorder = BorderFactory.createEmptyBorder(0, 0, 0, 0);
-	private Image imgStrengthLarge = new ImageIcon(PersonalFitnessTrackerUI.class.getResource("/weight2ICON.png")).getImage();
+	private Image imgStrengthLarge = new ImageIcon(
+			PersonalFitnessTrackerUI.class.getResource("/weight2ICON.png"))
+			.getImage();
 	private Icon iconStrengthLarge = new ImageIcon(imgStrengthLarge);
-	private Image imgCardioLarge = new ImageIcon(PersonalFitnessTrackerUI.class.getResource("/cardio2icon.png")).getImage();
+	private Image imgCardioLarge = new ImageIcon(
+			PersonalFitnessTrackerUI.class.getResource("/cardio2icon.png"))
+			.getImage();
 	private Icon iconCardioLarge = new ImageIcon(imgCardioLarge);
-	
-	//private Image imgStrengthSmall = new ImageIcon(PersonalFitnessTrackerUI.class.getResource("/weight2ICON.png")).getImage();
-	Image imgStrengthSmall = imgStrengthLarge.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH ) ;
+	Image imgStrengthSmall = imgStrengthLarge.getScaledInstance(20, 20,
+			java.awt.Image.SCALE_SMOOTH);
 	private Icon iconStrengthSmall = new ImageIcon(imgStrengthSmall);
-	//private Image imgCardioSmall = new ImageIcon(PersonalFitnessTrackerUI.class.getResource("/cardio2icon.png")).getImage();
-	Image imgCardioSmall = imgCardioLarge.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH ) ;
+	Image imgCardioSmall = imgCardioLarge.getScaledInstance(20, 20,
+			java.awt.Image.SCALE_SMOOTH);
 	private Icon iconCardioSmall = new ImageIcon(imgCardioSmall);
-	
-	
-	
-	private SpinnerModel repsModel = new SpinnerNumberModel(0, 0, 100, 1);   
-	private SpinnerModel hoursModel = new SpinnerNumberModel(0, 0, 25, 1);    
-	private SpinnerModel minsModel = new SpinnerNumberModel(0, 0, 59, 1);                
+	private SpinnerModel repsModel = new SpinnerNumberModel(0, 0, 100, 1);
+	private SpinnerModel hoursModel = new SpinnerNumberModel(0, 0, 25, 1);
+	private SpinnerModel minsModel = new SpinnerNumberModel(0, 0, 59, 1);
 	private JPanel contentPane;
 	private JTextField tfCardioActivityName;
 	private JTabbedPane tabbedPane;
@@ -93,10 +90,8 @@ public class PersonalFitnessTrackerUI extends JFrame {
 	private JXDatePicker compareDatePicker2;
 	private JScrollPane compareScrollPane1;
 	private JScrollPane compareScrollPane2;
-
 	private static applogic.PersonalFitnessTrackerLogic logic;
-	
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -104,12 +99,14 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					if(System.getProperty("os.name").contains("Linux") ||
-							System.getProperty("os.name").contains("Windows")){	
-						UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
-					}
-					else{
-						UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					if (System.getProperty("os.name").contains("Linux")
+							|| System.getProperty("os.name")
+									.contains("Windows")) {
+						UIManager
+								.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+					} else {
+						UIManager.setLookAndFeel(UIManager
+								.getSystemLookAndFeelClassName());
 					}
 					PersonalFitnessTrackerUI frame = new PersonalFitnessTrackerUI();
 					frame.setVisible(true);
@@ -126,7 +123,6 @@ public class PersonalFitnessTrackerUI extends JFrame {
 	 */
 	public PersonalFitnessTrackerUI() {
 		OSString = System.getProperty("os.name");
-		//System.out.println(OSString);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 516, 362);
 		contentPane = new JPanel();
@@ -135,69 +131,73 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(6, 6, 502, 328);
 		contentPane.add(tabbedPane);
-		
+
 		tabbedPane1 = new JPanel();
 		tabbedPane1.setBorder(emptyBorder);
 		tabbedPane1.setBackground(new Color(211, 211, 211));
 		tabbedPane.addTab("Enter Workout Information", null, tabbedPane1, null);
 		tabbedPane1.setLayout(null);
-		
+
 		tabbedPane2 = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane2.setBackground(new Color(211, 211, 211));
 		tabbedPane2.setBounds(6, 0, 468, 278);
 		tabbedPane2.setBorder(emptyBorder);
 		tabbedPane1.add(tabbedPane2);
-		
+
 		cardioMainPanel = new JPanel();
 		cardioMainPanel.setBackground(new Color(204, 204, 204));
 		cardioMainPanel.setBorder(emptyBorder);
-		
+
 		strengthMainPanel = new JPanel();
 		strengthMainPanel.setBorder(emptyBorder);
 		strengthMainPanel.setBackground(new Color(204, 204, 204));
-		tabbedPane2.addTab("...for a strength training workout", iconStrengthSmall, strengthMainPanel, null);
+		tabbedPane2.addTab("...for a strength training workout",
+				iconStrengthSmall, strengthMainPanel, null);
 		strengthMainPanel.setLayout(null);
-		
+
 		lblStrengthActivityName = new JLabel("Activity Name");
 		lblStrengthActivityName.setForeground(new Color(224, 255, 255));
-		lblStrengthActivityName.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 22));
+		lblStrengthActivityName.setFont(new Font("Microsoft Tai Le",
+				Font.PLAIN, 22));
 		lblStrengthActivityName.setBounds(67, 17, 176, 35);
 		strengthMainPanel.add(lblStrengthActivityName);
-		
+
 		lblRepetitions = new JLabel("Repetitions");
 		lblRepetitions.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 22));
 		lblRepetitions.setForeground(new Color(224, 255, 255));
 		lblRepetitions.setBounds(67, 124, 145, 25);
 		strengthMainPanel.add(lblRepetitions);
-		
+
 		lblWeightLifted = new JLabel("Weight Lifted");
 		lblWeightLifted.setForeground(new Color(224, 255, 255));
 		lblWeightLifted.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 22));
 		lblWeightLifted.setBounds(67, 90, 145, 25);
 		strengthMainPanel.add(lblWeightLifted);
-		
+
 		lblDateStrength = new JLabel("Date");
 		lblDateStrength.setForeground(new Color(224, 255, 255));
 		lblDateStrength.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 22));
 		lblDateStrength.setBounds(67, 56, 78, 25);
 		strengthMainPanel.add(lblDateStrength);
-		
+
 		tfStrengthActivityName = new JTextField();
-		tfStrengthActivityName.setBorder(new LineBorder(new Color(192, 192, 192)));
+		tfStrengthActivityName.setBorder(new LineBorder(
+				new Color(192, 192, 192)));
 		tfStrengthActivityName.setBounds(226, 21, 162, 28);
 		strengthMainPanel.add(tfStrengthActivityName);
 		tfStrengthActivityName.setColumns(10);
-		
+
 		datePickerStrength = new JXDatePicker();
 		datePickerStrength.getEditor().setEditable(false);
-		datePickerStrength.getEditor().setBorder(new LineBorder(new Color(192, 192, 192)));
+		datePickerStrength.getEditor().setBorder(
+				new LineBorder(new Color(192, 192, 192)));
 		datePickerStrength.setBounds(226, 55, 187, 28);
 		strengthMainPanel.add(datePickerStrength);
-		
+
 		btnSaveStrength = new JButton("Save Session Details");
 		btnSaveStrength.setBorder(UIManager.getBorder("Button.border"));
 		btnSaveStrength.setForeground(new Color(105, 105, 105));
@@ -205,66 +205,69 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		btnSaveStrength.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent m) {
-		        String name = tfStrengthActivityName.getText();
-		        String reps = repsSpinner.getValue().toString();
-		        String weight = tfWeightLifted.getText(); 
-		        Date dateSelected = datePickerStrength.getDate();
-		        try{
-		        	logic.addStrengthActivity(name, dateSelected, weight, reps);
-		        }
-		        catch(Exception e){
-		        	JOptionPane.showMessageDialog(strengthMainPanel, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-		        }
+				String name = tfStrengthActivityName.getText();
+				String reps = repsSpinner.getValue().toString();
+				String weight = tfWeightLifted.getText();
+				Date dateSelected = datePickerStrength.getDate();
+				try {
+					logic.addStrengthActivity(name, dateSelected, weight, reps);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(strengthMainPanel,
+							e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnSaveStrength.setBounds(136, 174, 176, 35);
 		strengthMainPanel.add(btnSaveStrength);
-		
+
 		repsSpinner = new JSpinner();
 		repsSpinner.setBounds(223, 123, 53, 30);
 		repsSpinner.setModel(repsModel);
 		strengthMainPanel.add(repsSpinner);
-		
+
 		lblLbs = new JLabel("lbs");
 		lblLbs.setFont(new Font("Sathu", Font.PLAIN, 14));
 		lblLbs.setForeground(new Color(105, 105, 105));
 		lblLbs.setBounds(282, 97, 61, 16);
 		strengthMainPanel.add(lblLbs);
-		
+
 		tfWeightLifted = new JTextField();
 		tfWeightLifted.setColumns(10);
 		tfWeightLifted.setBorder(new LineBorder(new Color(192, 192, 192)));
 		tfWeightLifted.setBounds(226, 89, 53, 28);
 		strengthMainPanel.add(tfWeightLifted);
-		
-		tabbedPane2.addTab("...for a cardio session", iconCardioSmall, cardioMainPanel, null);
+
+		tabbedPane2.addTab("...for a cardio session", iconCardioSmall,
+				cardioMainPanel, null);
 		cardioMainPanel.setLayout(null);
-		
+
 		lblCardioActivityName = new JLabel("Activity Name");
-		lblCardioActivityName.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 22));
+		lblCardioActivityName.setFont(new Font("Microsoft Tai Le", Font.PLAIN,
+				22));
 		lblCardioActivityName.setForeground(new Color(224, 255, 255));
 		lblCardioActivityName.setBounds(67, 17, 176, 35);
 		cardioMainPanel.add(lblCardioActivityName);
-		
+
 		lblTimeSpent = new JLabel("Time Spent");
 		lblTimeSpent.setForeground(new Color(224, 255, 255));
 		lblTimeSpent.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 22));
 		lblTimeSpent.setBounds(67, 88, 136, 29);
 		cardioMainPanel.add(lblTimeSpent);
-		
+
 		lblDateCardio = new JLabel("Date");
 		lblDateCardio.setForeground(new Color(224, 255, 255));
 		lblDateCardio.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 22));
 		lblDateCardio.setBounds(67, 54, 162, 28);
 		cardioMainPanel.add(lblDateCardio);
-		
+
 		tfCardioActivityName = new JTextField();
-		tfCardioActivityName.setBorder(new LineBorder(new Color(192, 192, 192)));
+		tfCardioActivityName
+				.setBorder(new LineBorder(new Color(192, 192, 192)));
 		tfCardioActivityName.setBackground(new Color(255, 255, 255));
 		tfCardioActivityName.setBounds(226, 21, 162, 28);
 		cardioMainPanel.add(tfCardioActivityName);
 		tfCardioActivityName.setColumns(10);
-		
+
 		btnSaveCardio = new JButton("Save Session Details");
 		btnSaveCardio.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 13));
 		btnSaveCardio.setForeground(new Color(105, 105, 105));
@@ -275,81 +278,81 @@ public class PersonalFitnessTrackerUI extends JFrame {
 				String name = tfCardioActivityName.getText();
 				Integer hours = (Integer) timeSpentHoursSpinner.getValue();
 				Integer minutes = (Integer) timeSpentMinsSpinner.getValue();
-				String time = "" + (hours*60 + minutes);
-		        Date dateSelected = datePickerCardio.getDate();
-		        try{
-		        	logic.addCardioActivity(name, dateSelected, time);
-		        }
-		        catch(Exception e){
-		        	JOptionPane.showMessageDialog(cardioMainPanel, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-		        }
+				String time = "" + (hours * 60 + minutes);
+				Date dateSelected = datePickerCardio.getDate();
+				try {
+					logic.addCardioActivity(name, dateSelected, time);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(cardioMainPanel,
+							e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
-		
+
 		btnSaveCardio.setBounds(136, 174, 176, 35);
 		cardioMainPanel.add(btnSaveCardio);
-		
+
 		datePickerCardio = new JXDatePicker();
 		datePickerCardio.getEditor().setEditable(false);
-		datePickerCardio.getEditor().setBorder(new LineBorder(new Color(192, 192, 192)));
+		datePickerCardio.getEditor().setBorder(
+				new LineBorder(new Color(192, 192, 192)));
 		datePickerCardio.setBounds(226, 55, 187, 28);
 		cardioMainPanel.add(datePickerCardio);
-		
+
 		timeSpentHoursSpinner = new JSpinner();
 		timeSpentHoursSpinner.setName("");
 		timeSpentHoursSpinner.setBounds(200, 89, 65, 28);
-		repsSpinner.setModel(hoursModel);
+		timeSpentHoursSpinner.setModel(hoursModel);
 		cardioMainPanel.add(timeSpentHoursSpinner);
-		
+
 		lblHours = new JLabel("Hours");
-		
+
 		lblHours.setForeground(new Color(105, 105, 105));
-		
+
 		lblHours.setFont(new Font("Sathu", Font.PLAIN, 14));
-		if(OSString.contains("Mac")){
+		if (OSString.contains("Mac")) {
 			lblHours.setBounds(270, 97, 61, 16);
-		}
-		else{
+		} else {
 			lblHours.setBounds(260, 97, 61, 16);
 		}
-		
-			
+
 		cardioMainPanel.add(lblHours);
-		
+
 		timeSpentMinsSpinner = new JSpinner();
 		timeSpentMinsSpinner.setBounds(307, 89, 65, 28);
-		repsSpinner.setModel(minsModel);
+		timeSpentMinsSpinner.setModel(minsModel);
 		cardioMainPanel.add(timeSpentMinsSpinner);
-		
+
 		lblMinutes = new JLabel("Minutes");
 		lblMinutes.setForeground(new Color(105, 105, 105));
 		lblMinutes.setFont(new Font("Sathu", Font.PLAIN, 14));
-		if(OSString.contains("Mac")){
+		if (OSString.contains("Mac")) {
 			lblMinutes.setBounds(380, 97, 61, 16);
-		}else{
+		} else {
 			lblMinutes.setBounds(364, 97, 61, 16);
 		}
 		cardioMainPanel.add(lblMinutes);
-		
+
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(0, -14, 195, 158);
 		cardioMainPanel.add(lblNewLabel);
 		lblNewLabel.setIcon(iconCardioLarge);
-		
+
 		label = new JLabel("");
 		label.setBounds(-31, 0, 162, 167);
 		label.setIcon(iconStrengthLarge);
 		strengthMainPanel.add(label);
-		
+
 		compareWorkoutsPanel = new JPanel();
 		compareWorkoutsPanel.setBorder(null);
 		compareWorkoutsPanel.setBackground(new Color(211, 211, 211));
-		tabbedPane.addTab("Compare Workout Details", null, compareWorkoutsPanel, null);
-		
-		compareScrollPane1 = new JScrollPane ();		
+		tabbedPane.addTab("Compare Workout Details", null,
+				compareWorkoutsPanel, null);
+
+		compareScrollPane1 = new JScrollPane();
 		compareScrollPane1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		
-		compareScrollPane2 = new JScrollPane ();		
+
+		compareScrollPane2 = new JScrollPane();
 		compareScrollPane2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		compareScrollPane2.setBackground(Color.LIGHT_GRAY);
 		compareScrollPane2.setBounds(12, 97, 226, 145);
@@ -358,6 +361,7 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		compareWorkoutsPanel.setLayout(null);
 		compareWorkoutsPanel.add(compareScrollPane2);
 		textArea2 = new JTextArea(5, 30);
+		textArea2.setEditable(false);
 		textArea2.setWrapStyleWord(true);
 		textArea2.setLineWrap(true);
 		compareScrollPane2.setViewportView(textArea2);
@@ -366,47 +370,54 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		textArea2.setMaximumSize(new Dimension(200, 200));
 		textArea2.setBackground(Color.WHITE);
 		compareWorkoutsPanel.add(compareScrollPane1);
-		
-		//compareWorkoutsPanel.setLayout(null);
 
 		textArea1 = new JTextArea(5, 30);
+		textArea1.setEditable(false);
 		textArea1.setLineWrap(true);
 		textArea1.setWrapStyleWord(true);
 		compareScrollPane1.setViewportView(textArea1);
 		textArea1.setForeground(new Color(105, 105, 105));
 		textArea1.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 14));
 		textArea1.setBackground(Color.WHITE);
-		
+
 		compareDatePicker1 = new JXDatePicker();
 		compareDatePicker1.setBounds(45, 65, 151, 28);
 		compareWorkoutsPanel.add(compareDatePicker1);
-		
+
 		compareDatePicker2 = new JXDatePicker();
 		compareDatePicker2.setBounds(294, 65, 151, 28);
 		compareWorkoutsPanel.add(compareDatePicker2);
-		
+
 		txtrCompareInstructions = new JLabel();
 		txtrCompareInstructions.setBackground(Color.LIGHT_GRAY);
-		txtrCompareInstructions.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 15));
+		txtrCompareInstructions.setFont(new Font("Microsoft Tai Le",
+				Font.PLAIN, 15));
 
-		txtrCompareInstructions.setText("<html>Choose up to two dates to compare workout sessions.<br> Your past workout details can inform you of your fitness improvements or declines.</html>");
+		txtrCompareInstructions
+				.setText("<html>Choose up to two dates to compare workout sessions.<br> Your past workout details can inform you of your fitness improvements or declines.</html>");
 		txtrCompareInstructions.setBounds(12, 0, 469, 62);
 		compareWorkoutsPanel.add(txtrCompareInstructions);
-		
+
 		btnCompareWorkouts = new JButton("Compare ");
 		btnCompareWorkouts.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				textArea2.setText(logic.searchByDate(compareDatePicker1.getDate()));
-				textArea1.setText(logic.searchByDate(compareDatePicker2.getDate()));
-				if(textArea1.getText().isEmpty() && textArea2.getText().isEmpty()){
-					JOptionPane.showMessageDialog(compareWorkoutsPanel, "You must select at least one date." , "Error", JOptionPane.ERROR_MESSAGE);
+				textArea2.setText(logic.searchByDate(compareDatePicker1
+						.getDate()));
+				textArea1.setText(logic.searchByDate(compareDatePicker2
+						.getDate()));
+				if (textArea1.getText().isEmpty()
+						&& textArea2.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(compareWorkoutsPanel,
+							"You must select at least one date.", "Error",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		btnCompareWorkouts.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 13));
+		btnCompareWorkouts
+				.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 13));
 		btnCompareWorkouts.setBounds(175, 254, 150, 35);
 		compareWorkoutsPanel.add(btnCompareWorkouts);
-		
+
 	}
 }

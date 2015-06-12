@@ -2,17 +2,16 @@ package objects;
 
 import java.util.Date;
 
-public class CardioActivity extends Activity{
+public class CardioActivity extends Activity {
 	private int timeSpent;
-	
+
 	public CardioActivity(String name, Date date, int timeSpent) {
 		super(name, date);
 		this.setTimeSpent(timeSpent);
-		
 	}
 
 	public CardioActivity() {
-		
+
 	}
 
 	@Override
@@ -33,7 +32,7 @@ public class CardioActivity extends Activity{
 		int hours, minutes;
 		hours = getTimeSpent() / 60;
 		minutes = getTimeSpent() % 60;
-		
+
 		return "Cardio Session:"
 				+ "\n    Name: "
 				+ this.getName()
@@ -45,7 +44,4 @@ public class CardioActivity extends Activity{
 						(this.getDate().toString()).length())
 				+ "\n    Time Spent: " + hours + ":" + minutes;
 	}
-	
-	
-
 }
