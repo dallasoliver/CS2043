@@ -18,23 +18,35 @@ public class PersonalFitnessTrackerLogic {
 
 	public void addCardioActivity(String name, Date date, String timeSpent)
 			throws Exception {
+		String errorMessage = "The following errors have occured:\n";
+		boolean isError = false;
 		Date now = new Date();
 		now.setTime(System.currentTimeMillis());
 		if (name.isEmpty()) {
-			throw new Exception("You must enter an activity name.");
+			errorMessage += "The activity name may not be blank.\n";
+			isError = true;
 		}
-		if (date.after(now) || date == null) {
-			throw new Exception("You must choose a date on or before today.");
+		if (date == null || date.after(now)) {
+			errorMessage += "The date must be on or before today.\n";
+			isError = true;
 		}
 		if (timeSpent.isEmpty()) {
-			throw new Exception("You must specify how long the activity took.");
+			errorMessage += "The duration of the activity must be specified\n";
+			isError = true;
 		}
-		int time;
+		int time = 0;
 		try {
 			time = Integer.parseInt(timeSpent);
 		} catch (NumberFormatException e) {
-			throw new Exception(
-					"You must enter numeric characters for time spent.");
+			errorMessage += "Only numeric characters may be entered for time spent.\n";
+			isError = true;
+		}
+		if(time < 0){
+			errorMessage += "Only positive numbers may be entered for time.";
+			isError = true;
+		}
+		if(isError){
+			throw new Exception(errorMessage);
 		}
 		Activity newActivity = new CardioActivity(name, date, time);
 		activities.add(newActivity);
@@ -43,29 +55,43 @@ public class PersonalFitnessTrackerLogic {
 
 	public void addStrengthActivity(String name, Date date, String weights,
 			String reps) throws Exception {
+		String errorMessage = "The following errors have occured:\n";
+		boolean isError = false;
 		Date now = new Date();
 		now.setTime(System.currentTimeMillis());
 		if (name.isEmpty()) {
-			throw new Exception("You must enter an activity name.");
+			errorMessage += "The activity name may not be blank.\n";
+			isError = true;
 		}
-		if (date.after(now)) {
-			throw new Exception("You must choose a date on or before today.");
+		if (date == null || date.after(now)) {
+			errorMessage += "The date must be on or before today.\n";
+			isError = true;
 		}
-		int repetitions;
-		int weightsLifted;
+		int repetitions = 0;
+		int weightsLifted = 0;
 		try {
 			repetitions = Integer.parseInt(reps);
 		} catch (NumberFormatException e) {
-			throw new Exception(
-					"You must enter numeric characters for repetitions");
+			errorMessage += "Only numeric characters may be entered for repetitions";
+			isError = true;
+		}
+		if(repetitions < 0){
+			errorMessage += "Only positive numbers may be entered for repetitions.";
+			isError = true;
 		}
 		try {
 			weightsLifted = Integer.parseInt(weights);
 		} catch (NumberFormatException e) {
-			throw new Exception(
-					"You must enter numeric characters for weights lifted");
+			errorMessage += "Only numeric characters may be entered for weights lifted.";
+			isError = true;
 		}
-
+		if(weightsLifted < 0){
+			errorMessage += "Only positive numbers may be entered for weights lifted.";
+			isError = true;
+		}
+		if(isError){
+			throw new Exception(errorMessage);
+		}
 		Activity newActivity = new StrengthActivity(name, date, weightsLifted,
 				repetitions);
 		activities.add(newActivity);
