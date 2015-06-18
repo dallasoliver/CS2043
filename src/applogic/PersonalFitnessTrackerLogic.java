@@ -48,7 +48,7 @@ public class PersonalFitnessTrackerLogic {
 
 		// Performs check for any errors in input.
 		if (name.isEmpty()) {
-			errorMessage += "The activity name may not be blank.\n";
+			errorMessage += "The activity name must be specified.\n";
 			isError = true;
 		}
 		Date now = new Date();
@@ -65,11 +65,11 @@ public class PersonalFitnessTrackerLogic {
 			try {
 				time = Integer.parseInt(timeSpent);
 			} catch (NumberFormatException e) {
-				errorMessage += "Only numeric characters may be entered for time spent.\n";
+				errorMessage += "The time spent must be numeric.\n";
 				isError = true;
 			}
 			if (time < 0) {
-				errorMessage += "Only positive numbers may be entered for time.";
+				errorMessage += "The time spent must be above zero.";
 				isError = true;
 			}
 		}
@@ -99,12 +99,12 @@ public class PersonalFitnessTrackerLogic {
 	 */
 	public void addStrengthActivity(String name, Date date, String weights,
 			String reps) throws Exception {
-		String errorMessage = "The following errors have occured:\n";
+		String errorMessage = "The following errors have occurred:\n";
 		boolean isError = false;
 
 		// Performs check for any errors in input.
 		if (name.isEmpty()) {
-			errorMessage += "The activity name may not be blank.\n";
+			errorMessage += "The activity name must be specified.\n";
 			isError = true;
 		}
 		Date now = new Date();
@@ -115,33 +115,33 @@ public class PersonalFitnessTrackerLogic {
 		}
 		int repetitions = 0;
 		if (reps.isEmpty()) {
-			errorMessage += "The amount of repetitions must be specified.\n";
+			errorMessage += "The number of repetitions must be specified.\n";
 			isError = true;
 		} else {
 			try {
 				repetitions = Integer.parseInt(reps);
 			} catch (NumberFormatException e) {
-				errorMessage += "Only numeric characters may be entered for repetitions";
+				errorMessage += "The number of repetitions must be numeric";
 				isError = true;
 			}
 			if (repetitions < 0) {
-				errorMessage += "Only positive numbers may be entered for repetitions.";
+				errorMessage += "The number of repetitions must be above zero.";
 				isError = true;
 			}
 		}
 		int weightsLifted = 0;
 		if (weights.isEmpty()) {
-			errorMessage += "The amount of weights must be specified.\n";
+			errorMessage += "The amount of weight lifted must be specified.\n";
 			isError = true;
 		} else {
 			try {
 				weightsLifted = Integer.parseInt(weights);
 			} catch (NumberFormatException e) {
-				errorMessage += "Only numeric characters may be entered for weights lifted.";
+				errorMessage += "The amount of weight lifted must be numeric.";
 				isError = true;
 			}
 			if (weightsLifted < 0) {
-				errorMessage += "Only positive numbers may be entered for weights lifted.";
+				errorMessage += "The amount of weight lifted must be above zero.";
 				isError = true;
 			}
 		}
@@ -187,7 +187,7 @@ public class PersonalFitnessTrackerLogic {
 			return "";
 		}
 		if (date.after(now)) {
-			errorMessage += "Date must be on or before today.\n";
+			errorMessage += "The date must be on or before today.\n";
 			isError = true;
 		}
 
@@ -222,7 +222,7 @@ public class PersonalFitnessTrackerLogic {
 			ret += act.toString() + "\n";
 		}
 		if (ret.isEmpty()) {
-			ret = "There are no recorded sessions for this date.";
+			ret = "There are no recorded workout sessions for this date.";
 		}
 		return ret;
 	}
