@@ -29,6 +29,7 @@ import javax.swing.border.LineBorder;
 import org.jdesktop.swingx.JXDatePicker;
 
 import applogic.PersonalFitnessTrackerLogic;
+import javax.swing.ScrollPaneConstants;
 
 public class PersonalFitnessTrackerUI extends JFrame {
 	private String OSString;
@@ -181,33 +182,35 @@ public class PersonalFitnessTrackerUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent m) {
 				String name = tfCardioActivityName.getText();
-				Integer hours;
-				Integer minutes;
-				if (!tfHours.getText().isEmpty()){
-					 hours = Integer.parseInt(tfHours.getText());
-				}
-				else
-					hours = 0;
-				if (!tfMinutes.getText().isEmpty()){
-					minutes = Integer.parseInt(tfMinutes.getText());
-				}
-				else
-					minutes = 0;
+				Integer hours = 0 ;
+				Integer minutes = 0;
 				String time = "";
-				String negNumberToProduceErrorInLogic = "-1";
-				if (hours < 0 || minutes < 0) {
-					time = negNumberToProduceErrorInLogic;
-				}
-				else {
-					time = "" + (hours * 60 + minutes);
+				
+				try{
+					if (!tfHours.getText().isEmpty()){
+						hours = Integer.parseInt(tfHours.getText());
+					}
+					if (!tfMinutes.getText().isEmpty()){
+						minutes = Integer.parseInt(tfMinutes.getText());
+					}
+					String negNumberToProduceErrorInLogic = "-1";
+					if (hours < 0 || minutes < 0) {
+						time = negNumberToProduceErrorInLogic;
+					}
+					else {
+						time += (hours * 60 + minutes);
+					}
+				} catch(NumberFormatException e){
+					JOptionPane.showMessageDialog(cardioMainPanel,
+							"The time spent must be numeric.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				Date dateSelected = datePickerCardio.getDate();
 				try {
 					logic.addCardioActivity(name, dateSelected, time);
 					lblCheck2.setIcon(iconCheck);
 					tfCardioActivityName.setText("");
-					tfHours.setText("");
-					tfMinutes.setText("");
+					tfHours.setText("0");
+					tfMinutes.setText("0");
 					datePickerCardio.setDate(null);
 				} catch (Exception e) {
 					lblCheck2.setIcon(null);
@@ -224,9 +227,11 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		tfHours = new JTextField();
 		tfHours.setBounds(226, 89, 43, 28);
 		tfHours.setBorder(new LineBorder(new Color(192, 192, 192)));
+		tfHours.setText("0");
 		tfMinutes = new JTextField();
 		tfMinutes.setBounds(324, 89, 43, 28);
 		tfMinutes.setBorder(new LineBorder(new Color(192, 192, 192)));
+		tfMinutes.setText("0");
 		lblMinutes = new JLabel("Minutes");
 		lblMinutes.setForeground(new Color(105, 105, 105));
 		lblMinutes.setFont(new Font("Sathu", Font.PLAIN, 14));
@@ -382,8 +387,10 @@ public class PersonalFitnessTrackerUI extends JFrame {
 
 		//Compare Workouts Panel
 		compareScrollPane1 = new JScrollPane();
+		compareScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		compareScrollPane1.setBorder(new LineBorder(Color.GRAY));
 		compareScrollPane2 = new JScrollPane();
+		compareScrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		compareScrollPane2.setBorder(new LineBorder(Color.GRAY));
 		compareScrollPane2.setBackground(Color.LIGHT_GRAY);
 		compareScrollPane2.setBounds(15, 97, 215, 145);
@@ -395,10 +402,9 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		textArea2.setEditable(false);
 		textArea2.setWrapStyleWord(true);
 		textArea2.setLineWrap(true);
-		compareScrollPane2.setRowHeaderView(textArea2);
+		compareScrollPane2.setViewportView(textArea2);
 		textArea2.setForeground(Color.DARK_GRAY);
 		textArea2.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 14));
-		textArea2.setMaximumSize(new Dimension(200, 200));
 		textArea2.setBackground(Color.WHITE);
 		compareWorkoutsPanel.add(compareScrollPane1);
 		textArea1 = new JTextArea(5, 30);
