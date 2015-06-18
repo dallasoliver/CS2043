@@ -7,63 +7,147 @@ import objects.Activity;
 import objects.CardioActivity;
 import objects.StrengthActivity;
 
+/**
+ * Performs the app logic for the Personal Fitness Tracker application
+ * 
+ * @author Team 5 - Joel Goddard, Matthew Johnstone, Dallas Oliver
+ */
 public class PersonalFitnessTrackerLogic {
+	/** The list of activities. */
 	private LinkedList<Activity> activities;
+	/** The name of the XML file in which data is stored/read. */
 	private String configFile;
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param configFile
+	 *            The name of the XML file in which data may be read/stored.
+	 */
 	public PersonalFitnessTrackerLogic(String configFile) {
 		this.configFile = configFile;
 		activities = ActivityParser.readConfig(configFile);
 	}
 
+	/**
+	 * Adds cardio activity to the activity list and updates XML file.
+	 * 
+	 * @param name
+	 *            The name of the activity.
+	 * @param date
+	 *            The date of when the activity was performed.
+	 * @param timeSpent
+	 *            The amount of time spent in doing the activity.
+	 * @throws Exception
+	 *             if one of the given parameters is not in the proper format.
+	 */
 	public void addCardioActivity(String name, Date date, String timeSpent)
 			throws Exception {
+		String errorMessage = "The following errors have occurred:\n";
+		boolean isError = false;
+
+		// Performs check for any errors in input.
+		if (name.isEmpty()) {
+			errorMessage += "The activity name may not be blank.\n";
+			isError = true;
+		}
 		Date now = new Date();
 		now.setTime(System.currentTimeMillis());
-		if (name.isEmpty()) {
-			throw new Exception("You must enter an activity name.");
+		if (date == null || date.after(now)) {
+			errorMessage += "The date must be on or before today.\n";
+			isError = true;
 		}
-		if (date.after(now) || date == null) {
-			throw new Exception("You must choose a date on or before today.");
-		}
+		int time = 0;
 		if (timeSpent.isEmpty()) {
-			throw new Exception("You must specify how long the activity took.");
+			errorMessage += "The duration of the activity must be specified\n";
+			isError = true;
+		} else {
+			try {
+				time = Integer.parseInt(timeSpent);
+			} catch (NumberFormatException e) {
+				errorMessage += "Only numeric characters may be entered for time spent.\n";
+				isError = true;
+			}
+			if (time < 0) {
+				errorMessage += "Only positive numbers may be entered for time.";
+				isError = true;
+			}
 		}
-		int time;
-		try {
-			time = Integer.parseInt(timeSpent);
-		} catch (NumberFormatException e) {
-			throw new Exception(
-					"You must enter numeric characters for time spent.");
+
+		if (isError) {
+			throw new Exception(errorMessage);
 		}
+
 		Activity newActivity = new CardioActivity(name, date, time);
 		activities.add(newActivity);
 		saveXML();
 	}
 
+	/**
+	 * Adds strength activity to the activity list and updates the XML file.
+	 * 
+	 * @param name
+	 *            The name of the activity.
+	 * @param date
+	 *            The date of when the activity was performed.
+	 * @param weights
+	 *            The amount of weights lifted in pounds.
+	 * @param reps
+	 *            The amount of repetitions performed.
+	 * @throws Exception
+	 *             if one of the given parameters is not in the proper format.
+	 */
 	public void addStrengthActivity(String name, Date date, String weights,
 			String reps) throws Exception {
+		String errorMessage = "The following errors have occured:\n";
+		boolean isError = false;
+
+		// Performs check for any errors in input.
+		if (name.isEmpty()) {
+			errorMessage += "The activity name may not be blank.\n";
+			isError = true;
+		}
 		Date now = new Date();
 		now.setTime(System.currentTimeMillis());
-		if (name.isEmpty()) {
-			throw new Exception("You must enter an activity name.");
+		if (date == null || date.after(now)) {
+			errorMessage += "The date must be on or before today.\n";
+			isError = true;
 		}
-		if (date.after(now)) {
-			throw new Exception("You must choose a date on or before today.");
+		int repetitions = 0;
+		if (reps.isEmpty()) {
+			errorMessage += "The amount of repetitions must be specified.\n";
+			isError = true;
+		} else {
+			try {
+				repetitions = Integer.parseInt(reps);
+			} catch (NumberFormatException e) {
+				errorMessage += "Only numeric characters may be entered for repetitions";
+				isError = true;
+			}
+			if (repetitions < 0) {
+				errorMessage += "Only positive numbers may be entered for repetitions.";
+				isError = true;
+			}
 		}
-		int repetitions;
-		int weightsLifted;
-		try {
-			repetitions = Integer.parseInt(reps);
-		} catch (NumberFormatException e) {
-			throw new Exception(
-					"You must enter numeric characters for repetitions");
+		int weightsLifted = 0;
+		if (weights.isEmpty()) {
+			errorMessage += "The amount of weights must be specified.\n";
+			isError = true;
+		} else {
+			try {
+				weightsLifted = Integer.parseInt(weights);
+			} catch (NumberFormatException e) {
+				errorMessage += "Only numeric characters may be entered for weights lifted.";
+				isError = true;
+			}
+			if (weightsLifted < 0) {
+				errorMessage += "Only positive numbers may be entered for weights lifted.";
+				isError = true;
+			}
 		}
-		try {
-			weightsLifted = Integer.parseInt(weights);
-		} catch (NumberFormatException e) {
-			throw new Exception(
-					"You must enter numeric characters for weights lifted");
+
+		if (isError) {
+			throw new Exception(errorMessage);
 		}
 
 		Activity newActivity = new StrengthActivity(name, date, weightsLifted,
@@ -72,14 +156,45 @@ public class PersonalFitnessTrackerLogic {
 		saveXML();
 	}
 
+	/**
+	 * Saves the list of activities to an XML file.
+	 * 
+	 * @throws Exception
+	 *             if any errors occur during file save.
+	 */
 	private void saveXML() throws Exception {
 		ActivityWriter.saveConfig(activities, configFile);
 	}
 
-	public String searchByDate(Date date) {
+	/**
+	 * Searches through the activity list for activities that match the given
+	 * date.
+	 * 
+	 * @param date
+	 *            The date in which we're looking for activities.
+	 * @return The toString information for each of the activities that match.
+	 * @throws Exception
+	 *             if the given parameter is not in the proper format.
+	 */
+	public String searchByDate(Date date) throws Exception {
+		String errorMessage = "The following errors have occured:\n";
+		boolean isError = false;
+
+		// Performs check for any errors in input.
+		Date now = new Date();
+		now.setTime(System.currentTimeMillis());
 		if (date == null) {
 			return "";
 		}
+		if (date.after(now)) {
+			errorMessage += "Date must be on or before today.\n";
+			isError = true;
+		}
+
+		if (isError) {
+			throw new Exception(errorMessage);
+		}
+
 		LinkedList<Activity> resultsList = new LinkedList<Activity>();
 		Iterator<Activity> it = activities.iterator();
 		while (it.hasNext()) {
@@ -91,6 +206,14 @@ public class PersonalFitnessTrackerLogic {
 		return display(resultsList);
 	}
 
+	/**
+	 * Goes through a list of activities and generates a String containing the
+	 * toString information.
+	 * 
+	 * @param activities
+	 *            The given list of activities in which we're parsing.
+	 * @return The toString information for all activities in the given list.
+	 */
 	private String display(LinkedList<Activity> activities) {
 		String ret = "";
 		Iterator<Activity> it = activities.iterator();
