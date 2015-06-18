@@ -69,7 +69,7 @@ public class PersonalFitnessTrackerLogic {
 				isError = true;
 			}
 			if (time < 0) {
-				errorMessage += "The time spent must be above zero.";
+				errorMessage += "The time spent must be above zero.\n";
 				isError = true;
 			}
 		}
@@ -121,11 +121,11 @@ public class PersonalFitnessTrackerLogic {
 			try {
 				repetitions = Integer.parseInt(reps);
 			} catch (NumberFormatException e) {
-				errorMessage += "The number of repetitions must be numeric";
+				errorMessage += "The number of repetitions must be numeric\n";
 				isError = true;
 			}
 			if (repetitions < 0) {
-				errorMessage += "The number of repetitions must be above zero.";
+				errorMessage += "The number of repetitions must be above zero.\n";
 				isError = true;
 			}
 		}
@@ -137,11 +137,11 @@ public class PersonalFitnessTrackerLogic {
 			try {
 				weightsLifted = Integer.parseInt(weights);
 			} catch (NumberFormatException e) {
-				errorMessage += "The amount of weight lifted must be numeric.";
+				errorMessage += "The amount of weight lifted must be numeric.\n";
 				isError = true;
 			}
 			if (weightsLifted < 0) {
-				errorMessage += "The amount of weight lifted must be above zero.";
+				errorMessage += "The amount of weight lifted must be above zero.\n";
 				isError = true;
 			}
 		}
