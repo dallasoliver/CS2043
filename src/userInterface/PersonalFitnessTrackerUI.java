@@ -182,7 +182,7 @@ public class PersonalFitnessTrackerUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent m) {
 				String name = tfCardioActivityName.getText();
-				Integer hours = 0 ;
+				Integer hours = 0;
 				Integer minutes = 0;
 				String time = "";
 				
@@ -193,8 +193,12 @@ public class PersonalFitnessTrackerUI extends JFrame {
 					if (!tfMinutes.getText().isEmpty()){
 						minutes = Integer.parseInt(tfMinutes.getText());
 					}
-					String negNumberToProduceErrorInLogic = "-1";
 					if(tfHours.getText().isEmpty() && tfMinutes.getText().isEmpty()){
+						hours = null;
+						minutes = null;
+					}
+					String negNumberToProduceErrorInLogic = "-1";
+					if(hours == null && minutes == null){
 						time = "";
 					}
 					else if (hours < 0 || minutes < 0) {
