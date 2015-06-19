@@ -245,7 +245,7 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		if (OSString.contains("Mac")) {
 			lblMinutes.setBounds(380, 97, 61, 16);
 		} else {
-			lblMinutes.setBounds(364, 97, 61, 16);
+			lblMinutes.setBounds(367, 97, 61, 16);
 		}
 		lblHours = new JLabel("Hours");
 		lblHours.setForeground(new Color(105, 105, 105));
@@ -253,7 +253,7 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		if (OSString.contains("Mac")) {
 			lblHours.setBounds(270, 97, 61, 16);
 		} else {
-			lblHours.setBounds(260, 97, 61, 16);
+			lblHours.setBounds(271, 97, 61, 16);
 		}
 		lblCardioIcon = new JLabel("");
 		lblCardioIcon.setBounds(0, -14, 195, 158);
@@ -380,6 +380,10 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		enterWorkoutTabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		enterWorkoutTabbedPane.setBackground(new Color(211, 211, 211));
 		enterWorkoutTabbedPane.setBounds(6, 0, 468, 278);
+		if(OSString.contains("Linux")|| OSString.contains("Windows")){
+			enterWorkoutTabbedPane.setBounds(15, 0, 468, 278);
+			
+		}
 		enterWorkoutTabbedPane.setBorder(emptyBorder);
 		enterWorkoutTabbedPane.addTab("...for a strength training workout",
 				iconStrengthSmall, strengthMainPanel, null);
