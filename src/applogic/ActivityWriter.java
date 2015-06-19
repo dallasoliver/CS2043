@@ -2,6 +2,7 @@ package applogic;
 
 import java.io.FileOutputStream;
 import java.util.LinkedList;
+
 import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLOutputFactory;
@@ -11,11 +12,22 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartDocument;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
+
 import java.util.ListIterator;
+
 import objects.*;
 
 public class ActivityWriter {
 
+	/**
+	 * Writes a list of Activities to the .xml data store
+	 * 
+	 * @param activities
+	 *            list of activities to be written
+	 * @param configFile
+	 *            the path to the .xml data store
+	 * @throws Exception
+	 */
 	public static void saveConfig(LinkedList<Activity> activities,
 			String configFile) throws Exception {
 		// create an XMLOutputFactory
@@ -33,12 +45,12 @@ public class ActivityWriter {
 		StartDocument startDocument = eventFactory.createStartDocument();
 		eventWriter.add(startDocument);
 		eventWriter.add(end);
-		
-		ListIterator iterator = (ListIterator) activities.iterator();
+
+		ListIterator<Activity> iterator = (ListIterator<Activity>) activities.iterator();
 		openRootNode(eventWriter);
 		while (iterator.hasNext()) {
-			Activity actIn = (Activity) iterator.next();
-			System.out.println("enetered loop");
+			Activity actIn = iterator.next();
+
 			if (actIn.getType().equals("StrengthActivity")) {
 
 				StrengthActivity strengthActIn = (StrengthActivity) actIn;
@@ -87,6 +99,16 @@ public class ActivityWriter {
 		eventWriter.close();
 	}
 
+	/**
+	 * creates and formats a new node in the .xml data store
+	 * 
+	 * @param eventWriter
+	 * @param name
+	 *            the name of the node to be written
+	 * @param value
+	 *            to be help in the node
+	 * @throws XMLStreamException
+	 */
 	private static void createNode(XMLEventWriter eventWriter, String name,
 			String value) throws XMLStreamException {
 
@@ -104,9 +126,16 @@ public class ActivityWriter {
 		EndElement eElement = eventFactory.createEndElement("", "", name);
 		eventWriter.add(eElement);
 		eventWriter.add(end);
-		System.out.println("created node");
+
 	}
 
+	/**
+	 * Writes the first tag in the .xml file, to be closed at the end of the
+	 * file using closeRootNode()
+	 * 
+	 * @param eventWriter
+	 * @throws XMLStreamException
+	 */
 	private static void openRootNode(XMLEventWriter eventWriter)
 			throws XMLStreamException {
 		XMLEventFactory eventFactory = XMLEventFactory.newInstance();
@@ -117,9 +146,15 @@ public class ActivityWriter {
 
 		eventWriter.add(sElement);
 		eventWriter.add(end);
-		System.out.println("opened root");
+
 	}
 
+	/**
+	 * Writes the final node to the xml file after all nodes are written
+	 * 
+	 * @param eventWriter
+	 * @throws XMLStreamException
+	 */
 	private static void closeRootNode(XMLEventWriter eventWriter)
 			throws XMLStreamException {
 		XMLEventFactory eventFactory = XMLEventFactory.newInstance();
@@ -129,6 +164,6 @@ public class ActivityWriter {
 				"Activities");
 		eventWriter.add(eElement);
 		eventWriter.add(end);
-		System.out.println("closed root");
+
 	}
 }
