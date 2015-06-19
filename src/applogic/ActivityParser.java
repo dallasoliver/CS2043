@@ -24,6 +24,11 @@ public class ActivityParser {
 	static final String REPS = "repetitions";
 	static final String WEIGHTLIFTED = "weightLifted";
 
+	/**
+	 * Returns a LinkedList of Activities read from a specified path to a .xml file
+	 * @param configFile file path to desired data location
+	 * @return A Linked List of Activities read from the data store
+	 */
 	public static LinkedList<Activity> readConfig(String configFile) {
 		LinkedList<Activity> activities = new LinkedList<Activity>();
 		try {
@@ -37,7 +42,7 @@ public class ActivityParser {
 
 			while (eventReader.hasNext()) {
 				XMLEvent event = eventReader.nextEvent();
-				
+
 				if (event.isStartElement()) {
 					StartElement startElement = event.asStartElement();
 					if (startElement.getName().getLocalPart() == (CARDIOACTIVITY)) {
