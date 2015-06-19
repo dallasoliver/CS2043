@@ -118,9 +118,9 @@ public class ActivityParser {
 				}
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			activities = new LinkedList<Activity>();
 		} catch (XMLStreamException e) {
-			e.printStackTrace();
+			activities = new LinkedList<Activity>();
 		}
 		return activities;
 	}
