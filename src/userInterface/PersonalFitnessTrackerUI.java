@@ -103,6 +103,11 @@ public class PersonalFitnessTrackerUI extends JFrame {
 								.getSystemLookAndFeelClassName());
 					}
 					PersonalFitnessTrackerUI frame = new PersonalFitnessTrackerUI();
+					if (System.getProperty("os.name").contains("Linux")
+							|| System.getProperty("os.name")
+									.contains("Windows")){
+					frame.setBounds(512, 512, frame.getWidth(), frame.getHeight()+12);
+					}
 					frame.setVisible(true);
 					frame.setResizable(false);
 					frame.setTitle("Personal Fitness Tracker");
@@ -244,7 +249,7 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		if (OSString.contains("Mac")) {
 			lblMinutes.setBounds(380, 97, 61, 16);
 		} else {
-			lblMinutes.setBounds(364, 97, 61, 16);
+			lblMinutes.setBounds(367, 97, 61, 16);
 		}
 		lblHours = new JLabel("Hours");
 		lblHours.setForeground(new Color(105, 105, 105));
@@ -252,7 +257,7 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		if (OSString.contains("Mac")) {
 			lblHours.setBounds(270, 97, 61, 16);
 		} else {
-			lblHours.setBounds(260, 97, 61, 16);
+			lblHours.setBounds(271, 97, 61, 16);
 		}
 		lblCardioIcon = new JLabel("");
 		lblCardioIcon.setBounds(0, -14, 195, 158);
@@ -379,6 +384,10 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		enterWorkoutTabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		enterWorkoutTabbedPane.setBackground(new Color(211, 211, 211));
 		enterWorkoutTabbedPane.setBounds(6, 0, 468, 278);
+		if(OSString.contains("Linux")|| OSString.contains("Windows")){
+			enterWorkoutTabbedPane.setBounds(15, 0, 468, 278);
+			
+		}
 		enterWorkoutTabbedPane.setBorder(emptyBorder);
 		enterWorkoutTabbedPane.addTab("...for a strength training workout",
 				iconStrengthSmall, strengthMainPanel, null);
@@ -433,9 +442,20 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		txtrCompareInstructions.setForeground(new Color(105, 105, 105));
 		txtrCompareInstructions.setBackground(Color.LIGHT_GRAY);
 		txtrCompareInstructions.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 14));
+		
+		if (System.getProperty("os.name").contains("Linux")
+				|| System.getProperty("os.name")
+						.contains("Windows")){
+			txtrCompareInstructions.setFont(new Font("Microsoft Tai Le", Font.PLAIN, 12));
+		}
+		
 		txtrCompareInstructions
-				.setText("<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Choose up to two dates to compare workout sessions. Your past workout details can inform you of your fitness improvements or declines.</html>");
+				.setText("<html><div style=\"text-align: center;\">Choose up to two dates to compare workout sessions. Your past workout details can inform you of your fitness improvements or declines.</html>");
 		txtrCompareInstructions.setBounds(15, 0, 450, 62);
+		
+		
+		
+		
 		compareWorkoutsPanel.add(txtrCompareInstructions);
 		btnCompareWorkouts = new JButton("Compare ");
 		btnCompareWorkouts.setForeground(new Color(105, 105, 105));
