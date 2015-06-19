@@ -194,15 +194,17 @@ public class PersonalFitnessTrackerUI extends JFrame {
 						minutes = Integer.parseInt(tfMinutes.getText());
 					}
 					String negNumberToProduceErrorInLogic = "-1";
-					if (hours < 0 || minutes < 0) {
+					if(tfHours.getText().isEmpty() && tfMinutes.getText().isEmpty()){
+						time = "";
+					}
+					else if (hours < 0 || minutes < 0) {
 						time = negNumberToProduceErrorInLogic;
 					}
 					else {
 						time += (hours * 60 + minutes);
 					}
 				} catch(NumberFormatException e){
-					JOptionPane.showMessageDialog(cardioMainPanel,
-							"The time spent must be numeric.", "Error", JOptionPane.ERROR_MESSAGE);
+					time = "Error, the time spent must be numeric.";
 				}
 				Date dateSelected = datePickerCardio.getDate();
 				try {
