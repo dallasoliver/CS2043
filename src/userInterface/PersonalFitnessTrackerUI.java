@@ -247,7 +247,7 @@ public class PersonalFitnessTrackerUI extends JFrame {
 		lblMinutes.setForeground(new Color(105, 105, 105));
 		lblMinutes.setFont(new Font("Sathu", Font.PLAIN, 14));
 		if (OSString.contains("Mac")) {
-			lblMinutes.setBounds(380, 97, 61, 16);
+			lblMinutes.setBounds(368, 97, 61, 16);
 		} else {
 			lblMinutes.setBounds(367, 97, 61, 16);
 		}
